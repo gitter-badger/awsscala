@@ -27,7 +27,7 @@ class SNSClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
 
   "A SNSClient" when {
 
-    "publish message" should {
+    "publishes messages" should {
       "return messageId of the execution result" in {
         snsClient.publish("@message") must equal("@messageId")
       }

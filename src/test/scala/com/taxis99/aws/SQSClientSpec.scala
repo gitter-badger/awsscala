@@ -14,7 +14,8 @@ import com.amazonaws.services.sqs.model.ReceiveMessageResult
 class SQSClientSpec extends WordSpec with MustMatchers {
 
   object SQSClient extends SQSClient(accessKey = "x", secretKey = "y", queueName = "queue", endpoint = "localhost:9000") {
-    override def createClient() = {
+    override def create() = {
+
       val client = mock(classOf[AmazonSQSClient])
       val queueUrl = "queueUrl"
       when(client.createQueue(any[CreateQueueRequest]()))
@@ -25,7 +26,7 @@ class SQSClientSpec extends WordSpec with MustMatchers {
     }
   }
 
-  "SQSHelper" must {
+  "A SQSClient" must {
     "receive nothing on empty list" in {
       SQSClient.fetchMessage must be(None)
     }

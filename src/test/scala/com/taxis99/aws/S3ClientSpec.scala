@@ -11,7 +11,8 @@ import com.amazonaws.services.s3.model.S3ObjectSummary
 class S3ClientSpec extends WordSpec with MustMatchers {
 
   object S3Client extends S3Client(accessKey = "x", secretKey = "y", bucketName = "bucket") {
-    override def createClient() = {
+    override def create() = {
+
       val client = mock(classOf[AmazonS3Client])
       val objectListing = mock(classOf[ObjectListing])
       when(objectListing.getObjectSummaries())
@@ -22,7 +23,7 @@ class S3ClientSpec extends WordSpec with MustMatchers {
     }
   }
 
-  "S3Client" must {
+  "A S3Client" must {
     "receive nothing on empty bucket" in {
       S3Client.listFiles("prefix") must have size(0)
     }
