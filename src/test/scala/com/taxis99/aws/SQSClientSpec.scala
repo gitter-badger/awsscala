@@ -11,10 +11,11 @@ import com.amazonaws.services.sqs.model.Message
 import com.amazonaws.services.sqs.model.ReceiveMessageRequest
 import com.amazonaws.services.sqs.model.ReceiveMessageResult
 
-class SQSHelperSpec extends WordSpec with MustMatchers {
+class SQSClientSpec extends WordSpec with MustMatchers {
 
-  object SQSHelper extends SQSHelper(accessKey = "x", secretKey = "y", queueName = "queue", endpoint = "localhost:9000") {
-    override def createClient() = {
+  object SQSClient extends SQSClient(accessKey = "x", secretKey = "y", queueName = "queue", endpoint = "localhost:9000") {
+    override def create() = {
+
       val client = mock(classOf[AmazonSQSClient])
       val queueUrl = "queueUrl"
       when(client.createQueue(any[CreateQueueRequest]()))
@@ -25,9 +26,9 @@ class SQSHelperSpec extends WordSpec with MustMatchers {
     }
   }
 
-  "SQSHelper" must {
+  "A SQSClient" must {
     "receive nothing on empty list" in {
-      SQSHelper.fetchMessage must be(None)
+      SQSClient.fetchMessage must be(None)
     }
   }
 
