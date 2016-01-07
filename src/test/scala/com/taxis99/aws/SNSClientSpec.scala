@@ -9,7 +9,7 @@ import org.mockito.Matchers.{eq => eq2, _}
 
 class SNSClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
   class MockSNSClient(val client: AmazonSNS = mock(classOf[AmazonSNS])) extends SNSClient("@key", "@secret", "@topic", "@endpoint"){
-    override def createClient() = {
+    override def create() = {
 
       when(client.createTopic(new CreateTopicRequest("@topic")))
         .thenReturn(new CreateTopicResult().withTopicArn("@arn"))

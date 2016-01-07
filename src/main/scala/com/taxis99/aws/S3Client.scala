@@ -5,6 +5,9 @@ import scala.collection.JavaConversions._
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.services.s3.AmazonS3Client
 
+/**
+ * Client to handle S3 Interface
+ */
 class S3Client(accessKey: String, secretKey: String, bucketName: String) {
 
   @deprecated("Use S3Client's create instead", since="v0.3.6" )
