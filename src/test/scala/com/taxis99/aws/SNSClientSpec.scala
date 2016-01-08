@@ -1,11 +1,11 @@
 package com.taxis99.aws
 
-import com.amazonaws.services.sns.AmazonSNS
-import com.amazonaws.services.sns.model.{PublishResult, PublishRequest, CreateTopicResult, CreateTopicRequest}
-import org.scalatest.{BeforeAndAfter, MustMatchers, WordSpec}
+import org.scalatest.{ BeforeAndAfter, MustMatchers, WordSpec }
 import org.mockito.Mockito._
-import org.mockito.Matchers.{eq => eq2, _}
+import org.mockito.Matchers.{ eq => eq2, _ }
 
+import com.amazonaws.services.sns.AmazonSNS
+import com.amazonaws.services.sns.model.{ PublishResult, PublishRequest, CreateTopicResult, CreateTopicRequest }
 
 class SNSClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
   class MockSNSClient(val client: AmazonSNS = mock(classOf[AmazonSNS])) extends SNSClient("@key", "@secret", "@topic", "@endpoint"){
@@ -33,12 +33,12 @@ class SNSClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
       }
       "send a valid message without subject" in {
         snsClient.publish("@message")
-        verify(snsClient.client).publish(new PublishRequest("@arn", "@message",null))
+        verify(snsClient.client).publish(new PublishRequest("@arn", "@message", null))
       }
 
       "send a valid message with subject" in {
         snsClient.publishWithSubject("@message", "@subject")
-        verify(snsClient.client).publish(new PublishRequest("@arn", "@message","@subject"))
+        verify(snsClient.client).publish(new PublishRequest("@arn", "@message", "@subject"))
 
       }
     }

@@ -7,6 +7,9 @@ import com.amazonaws.services.sns.{AmazonSNS, AmazonSNSAsyncClient}
 import com.amazonaws.services.sqs.model.CreateQueueRequest
 import com.amazonaws.services.sqs.{AmazonSQS, AmazonSQSAsyncClient}
 
+/**
+ * Subscribes SQS queues to SNS topics
+ */
 class SNSSQSSubscriber (accessKey: String, secretKey: String, sqsEndpoint: String, snsEndpoint: String) {
 
   def createSNSClient(): AmazonSNS = new AmazonSNSAsyncClient(new BasicAWSCredentials(accessKey, secretKey))
