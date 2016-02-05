@@ -1,6 +1,6 @@
 # awsscala
 
-[![Build Status](https://travis-ci.org/99taxis/awsscala.svg?branch=master)](https://travis-ci.org/99taxis/awsscala) [![Coverage Status](https://coveralls.io/repos/github/99taxis/awsscala/badge.svg?branch=master)](https://coveralls.io/github/99taxis/awsscala?branch=master) [![Issue Count](https://codeclimate.com/github/99taxis/awsscala/badges/issue_count.svg)](https://codeclimate.com/github/99taxis/awsscala) [![License](http://img.shields.io/:license-Apache%202-red.svg "Apache 2.0")](https://github.com/99taxis/awsscala/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/99taxis/awsscala.svg?branch=master)](https://travis-ci.org/99taxis/awsscala "Travis CI") [![Coverage Status](https://coveralls.io/repos/github/99taxis/awsscala/badge.svg?branch=master)](https://coveralls.io/github/99taxis/awsscala?branch=master "Coveralls") [![Issue Count](https://codeclimate.com/github/99taxis/awsscala/badges/issue_count.svg)](https://codeclimate.com/github/99taxis/awsscala/issues "Code Climate") [![License](http://img.shields.io/:license-Apache%202-red.svg)](https://github.com/99taxis/awsscala/blob/master/LICENSE "Apache 2.0 Licence")
 
 helpers to deal with Java -> scala translations and paradigms
 
@@ -55,6 +55,6 @@ For Maven users have them add:
 
 ## License
 
-`awsscala` is open source software released under the Apache 2 License.
+`awsscala` is open source software released under the Apache 2.0 License.
 
 See the [LICENSE](https://github.com/99taxis/awsscala/blob/master/LICENSE) file for details.
