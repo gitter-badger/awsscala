@@ -1,11 +1,10 @@
 package com.taxis99.aws
 
-
 import scala.collection.JavaConverters._
 
-import com.amazonaws.services.sqs.AmazonSQSClient
-import com.amazonaws.services.sqs.AmazonSQSAsyncClient
 import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.services.sqs.AmazonSQS
+import com.amazonaws.services.sqs.AmazonSQSAsyncClient
 import com.amazonaws.services.sqs.model._
 
 /**
@@ -13,13 +12,10 @@ import com.amazonaws.services.sqs.model._
   */
 class SQSClient (accessKey: String, secretKey: String, queueName: String, endpoint: String) {
 
-  @deprecated("Use SQSClient's create instead", since="v0.3.6" )
-  def createClient(): AmazonSQSClient = create()
-
-  def create(): AmazonSQSClient = new AmazonSQSAsyncClient(new BasicAWSCredentials(accessKey, secretKey))
+  def create(): AmazonSQS = new AmazonSQSAsyncClient(new BasicAWSCredentials(accessKey, secretKey))
 
   private lazy val (client, queueUrl) = {
-    val newClient = createClient()
+    val newClient = create()
     newClient.setEndpoint(endpoint)
     val newQueueUrl = newClient.createQueue(new CreateQueueRequest(queueName)).getQueueUrl
     (newClient, newQueueUrl)
