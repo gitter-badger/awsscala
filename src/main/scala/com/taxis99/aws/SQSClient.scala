@@ -3,8 +3,7 @@ package com.taxis99.aws
 import scala.collection.JavaConverters._
 
 import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.services.sqs.AmazonSQS
-import com.amazonaws.services.sqs.AmazonSQSAsyncClient
+import com.amazonaws.services.sqs.{ AmazonSQS, AmazonSQSAsyncClient }
 import com.amazonaws.services.sqs.model._
 
 /**

@@ -1,8 +1,8 @@
 package com.taxis99.aws
 
 import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.services.sns.model.{CreateTopicRequest, PublishRequest}
-import com.amazonaws.services.sns.{AmazonSNS, AmazonSNSAsyncClient}
+import com.amazonaws.services.sns.{ AmazonSNS, AmazonSNSAsyncClient }
+import com.amazonaws.services.sns.model._
 
 /**
  * Client to handle SNS Interface
