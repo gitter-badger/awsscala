@@ -3,7 +3,6 @@ package com.taxis99.aws
 import java.io.{ File => JFile }
 
 import scala.collection.JavaConversions._
-import scala.reflect.io.File
 
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.services.s3.{ AmazonS3, AmazonS3Client }
@@ -19,8 +18,6 @@ class S3Client(accessKey: String, secretKey: String, bucketName: String) {
   private lazy val client = create()
 
   def uploadFile(key: String, file: JFile): PutObjectResult = client.putObject(bucketName, key, file)
-
-  def uploadFile(key: String, file: File): PutObjectResult = uploadFile(key, file.jfile)
 
   def listFiles(prefix: String) = {
     client.listObjects(bucketName, prefix).getObjectSummaries.sortBy(_.getLastModified).reverse
