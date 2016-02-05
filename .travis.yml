@@ -1,14 +1,17 @@
 #test execution script.
 
 language: scala
-sudo: false
-before_install: umask 0022
 scala:
   - 2.10.5
   - 2.11.7
 jdk:
   - oraclejdk8
   - oraclejdk7
+  - openjdk7
+script:
+  - sbt ++$TRAVIS_SCALA_VERSION clean coverage test
+after_success:
+  - sbt coveralls
 addons:
     code_climate:
         repo_token: ac42352e67c30ae52f5d232715332a7c7f1c7abac0da70f912b03dbaeb6520e1
