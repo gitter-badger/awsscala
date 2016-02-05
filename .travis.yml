@@ -10,7 +10,7 @@ sudo: false
 script:
   - sbt ++$TRAVIS_SCALA_VERSION clean coverage test
 after_success:
-  - sbt coveralls
+  - sbt ++$TRAVIS_SCALA_VERSION coveralls
 addons:
     code_climate:
         repo_token: ac42352e67c30ae52f5d232715332a7c7f1c7abac0da70f912b03dbaeb6520e1
