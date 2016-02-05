@@ -14,3 +14,6 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.8.4")
 resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
 
 addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "3.0.0")
+
+
+addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.3.5")
