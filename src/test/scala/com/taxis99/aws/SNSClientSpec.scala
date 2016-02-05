@@ -1,24 +1,23 @@
 package com.taxis99.aws
 
-import org.scalatest.{ BeforeAndAfter, MustMatchers, WordSpec }
-import org.mockito.Mockito._
 import org.mockito.Matchers.{ eq => eq2, _ }
+import org.mockito.Mockito._
+import org.scalatest.{ BeforeAndAfter, MustMatchers, WordSpec }
 
 import com.amazonaws.services.sns.AmazonSNS
-import com.amazonaws.services.sns.model.{ PublishResult, PublishRequest, CreateTopicResult, CreateTopicRequest }
+import com.amazonaws.services.sns.model._
 
 class SNSClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
-  class MockSNSClient(val client: AmazonSNS = mock(classOf[AmazonSNS])) extends SNSClient("@key", "@secret", "@topic", "@endpoint"){
+  class MockSNSClient(val sns: AmazonSNS = mock(classOf[AmazonSNS])) extends SNSClient(accessKey = "@key", secretKey = "@secret", topicName = "@topic", endpoint = "@snsEndpoint"){
     override def create() = {
 
-      when(client.createTopic(new CreateTopicRequest("@topic")))
-        .thenReturn(new CreateTopicResult().withTopicArn("@arn"))
-      when(client.publish(any()))
+      when(sns.createTopic(new CreateTopicRequest("@topic")))
+        .thenReturn(new CreateTopicResult().withTopicArn("@topicArn"))
+      when(sns.publish(any()))
         .thenReturn(new PublishResult().withMessageId("@messageId"))
-      client
+      sns
     }
   }
-
 
   var snsClient: MockSNSClient = null
   before {
@@ -28,17 +27,19 @@ class SNSClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
   "A SNSClient" when {
 
     "publishes messages" should {
+
       "return messageId of the execution result" in {
         snsClient.publish("@message") must equal("@messageId")
       }
+
       "send a valid message without subject" in {
         snsClient.publish("@message")
-        verify(snsClient.client).publish(new PublishRequest("@arn", "@message", null))
+        verify(snsClient.sns).publish(new PublishRequest("@topicArn", "@message", null))
       }
 
       "send a valid message with subject" in {
         snsClient.publishWithSubject("@message", "@subject")
-        verify(snsClient.client).publish(new PublishRequest("@arn", "@message", "@subject"))
+        verify(snsClient.sns).publish(new PublishRequest("@topicArn", "@message", "@subject"))
 
       }
     }

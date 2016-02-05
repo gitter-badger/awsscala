@@ -1,19 +1,18 @@
 package com.taxis99.aws
 
+import org.mockito.Matchers.anyString
 import org.mockito.Mockito._
-import org.mockito.Matchers._
 import org.scalatest.{ Finders, MustMatchers, WordSpec }
 
-import com.amazonaws.services.s3.AmazonS3Client
-import com.amazonaws.services.s3.model.ObjectListing
-import com.amazonaws.services.s3.model.S3ObjectSummary
+import com.amazonaws.services.s3.AmazonS3
+import com.amazonaws.services.s3.model._
 
 class S3ClientSpec extends WordSpec with MustMatchers {
 
-  object S3Client extends S3Client(accessKey = "x", secretKey = "y", bucketName = "bucket") {
+  object S3Client extends S3Client(accessKey = "@key", secretKey = "@secret", bucketName = "@bucket") {
     override def create() = {
 
-      val client = mock(classOf[AmazonS3Client])
+      val client = mock(classOf[AmazonS3])
       val objectListing = mock(classOf[ObjectListing])
       when(objectListing.getObjectSummaries())
         .thenReturn(new java.util.ArrayList[S3ObjectSummary]())
