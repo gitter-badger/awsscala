@@ -1,7 +1,7 @@
 package com.taxis99.aws
 
-import org.mockito.Matchers.{ eq => eq2, _ }
-import org.mockito.Mockito._
+import org.mockito.Matchers.any
+import org.mockito.Mockito.{ mock, times, verify, when }
 import org.scalatest.{ BeforeAndAfter, MustMatchers, WordSpec }
 
 import com.amazonaws.services.sns.AmazonSNS
@@ -28,18 +28,23 @@ class SNSClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
 
     "publishes messages" should {
 
+      "create topic on client usage" in {
+        snsClient.publish("@message")
+        verify(snsClient.sns, times(1)).createTopic(new CreateTopicRequest("@topic"))
+      }
+
       "return messageId of the execution result" in {
         snsClient.publish("@message") must equal("@messageId")
       }
 
       "send a valid message without subject" in {
         snsClient.publish("@message")
-        verify(snsClient.sns).publish(new PublishRequest("@topicArn", "@message", null))
+        verify(snsClient.sns, times(1)).publish(new PublishRequest("@topicArn", "@message", null))
       }
 
       "send a valid message with subject" in {
         snsClient.publishWithSubject("@message", "@subject")
-        verify(snsClient.sns).publish(new PublishRequest("@topicArn", "@message", "@subject"))
+        verify(snsClient.sns, times(1)).publish(new PublishRequest("@topicArn", "@message", "@subject"))
 
       }
     }

@@ -3,8 +3,8 @@ package com.taxis99.aws
 import scala.collection.JavaConversions._
 
 import org.mockito.Matchers.any
-import org.mockito.Mockito._
-import org.scalatest.{ BeforeAndAfter, Finders, MustMatchers, WordSpec }
+import org.mockito.Mockito.{ mock, times, verify, when }
+import org.scalatest.{ BeforeAndAfter, MustMatchers, WordSpec }
 
 import com.amazonaws.services.sns.AmazonSNS
 import com.amazonaws.services.sns.model._
