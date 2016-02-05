@@ -16,6 +16,6 @@ resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/release
 addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "3.0.0")
 
 
-addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.3.5")
+addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.0.1")
 
-addSbtPlugin("org.scoverage" % "sbt-coveralls" % "1.0.3")
+addSbtPlugin("org.scoverage" % "sbt-coveralls" % "1.0.0")
