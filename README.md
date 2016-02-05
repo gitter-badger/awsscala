@@ -1,5 +1,7 @@
 # awsscala
 
+[![Build Status](https://travis-ci.org/99taxis/awsscala.svg?branch=master)](https://travis-ci.org/99taxis/awsscala) [![Coverage Status](https://coveralls.io/repos/github/99taxis/awsscala/badge.svg?branch=master)](https://coveralls.io/github/99taxis/awsscala?branch=master) [![Issue Count](https://codeclimate.com/github/99taxis/awsscala/badges/issue_count.svg)](https://codeclimate.com/github/99taxis/awsscala) [![License](http://img.shields.io/:license-Apache%202-red.svg "Apache 2.0")](https://github.com/99taxis/awsscala/blob/master/LICENSE)
+
 helpers to deal with Java -> scala translations and paradigms
 
 
@@ -23,7 +25,7 @@ The version comes from the corresponding Git tag.
 
 ## Instructions for Development
 
-The easiest way to publish your library to a public repository is with [BinTray](https://bintray.com/).
+We recommend you to publish your library to a [BinTray](https://bintray.com/) public repository .
 To publish your library to BinTray follow these steps:
 
 * [Create a BinTray account](https://bintray.com/)
@@ -40,7 +42,7 @@ For the former option do:
 
 For your sbt users have them add the following to their build.sbt:
 
-    resolvers += "YOUR_BINTRAY_USERNAME" at "http://dl.bintray.com/content/YOUR_BINTRAY_USERNAME/maven"</code></pre>
+    resolvers += "YOUR_BINTRAY_USERNAME" at "http://dl.bintray.com/content/YOUR_BINTRAY_USERNAME/maven"
 
 For Maven users have them add:
 
@@ -51,3 +53,8 @@ For Maven users have them add:
       </repository>
     </repositories>
 
+## License
+
+`awsscala` is open source software released under the Apache 2 License.
+
+See the [LICENSE](https://github.com/99taxis/awsscala/blob/master/LICENSE) file for details.
