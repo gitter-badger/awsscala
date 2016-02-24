@@ -3,7 +3,7 @@ package com.taxis99.aws
 import scala.collection.JavaConverters._
 
 import org.mockito.Matchers.{ any, anyString }
-import org.mockito.Mockito.{ mock, times, verify, when }
+import org.mockito.Mockito.{ mock, never, times, verify, when }
 import org.scalatest.{ BeforeAndAfter, MustMatchers, WordSpec }
 
 import com.amazonaws.services.sqs.AmazonSQS
@@ -108,6 +108,11 @@ class SQSClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
         val messageMock = mock(classOf[Message])
         sqsClient.deleteMessages(List(messageMock))
         verify(sqsClient.sqs, times(1)).deleteMessageBatch(anyString, any[java.util.List[DeleteMessageBatchRequestEntry]]())
+      }
+
+      "do nothing on empty list" in {
+        sqsClient.deleteMessages(List())
+        verify(sqsClient.sqs, never()).deleteMessageBatch(anyString, any[java.util.List[DeleteMessageBatchRequestEntry]]())
       }
     }
 
