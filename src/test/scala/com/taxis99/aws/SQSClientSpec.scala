@@ -2,7 +2,7 @@ package com.taxis99.aws
 
 import scala.collection.JavaConverters._
 
-import org.mockito.Matchers.any
+import org.mockito.Matchers.{ any, anyString }
 import org.mockito.Mockito.{ mock, times, verify, when }
 import org.scalatest.{ BeforeAndAfter, MustMatchers, WordSpec }
 
@@ -93,6 +93,21 @@ class SQSClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
       "receive a number" in {
         val number = sqsClient.approximateNumberOfMessages()
         number must be(1)
+      }
+    }
+
+    "delete messages" should {
+
+      "create queue on client usage" in {
+        val messageMock = mock(classOf[Message])
+        sqsClient.deleteMessages(List(messageMock))
+        verify(sqsClient.sqs, times(1)).createQueue(new CreateQueueRequest("@queue"))
+      }
+
+      "use inner client deleteMessageBatch" in {
+        val messageMock = mock(classOf[Message])
+        sqsClient.deleteMessages(List(messageMock))
+        verify(sqsClient.sqs, times(1)).deleteMessageBatch(anyString, any[java.util.List[DeleteMessageBatchRequestEntry]]())
       }
     }
 
