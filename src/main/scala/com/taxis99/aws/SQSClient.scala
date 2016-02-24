@@ -30,9 +30,19 @@ class SQSClient (accessKey: String, secretKey: String, queueName: String, endpoi
     client.receiveMessage(request).getMessages().asScala.toList
   }
 
-  def deleteMessage(message: Message): Unit = {
+  def deleteMessage(message: Message) {
     if (message != null) {
       client.deleteMessage(new DeleteMessageRequest(queueUrl, message.getReceiptHandle))
+    }
+  }
+
+  def deleteMessages(messages: List[Message]) {
+    if (messages.nonEmpty) {
+      client.deleteMessageBatch(queueUrl, messages.map { message =>
+        new DeleteMessageBatchRequestEntry()
+          .withId(message.getMessageId)
+          .withReceiptHandle(message.getReceiptHandle)
+      }.asJava)
     }
   }
 
