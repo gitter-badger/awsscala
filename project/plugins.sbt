@@ -19,3 +19,6 @@ addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "3.0.0")
 addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.0.1")
 
 addSbtPlugin("org.scoverage" % "sbt-coveralls" % "1.0.0")
+
+
+addSbtPlugin("com.updateimpact" % "updateimpact-sbt-plugin" % "2.1.1")
