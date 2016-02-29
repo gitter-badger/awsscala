@@ -7,6 +7,13 @@ scala:
 jdk:
   - oraclejdk8
 sudo: false
+before_cache:
+  - find $HOME/.sbt -name "*.lock" | xargs rm
+  - find $HOME/.ivy2 -name "ivydata-*.properties" | xargs rm
+cache:
+  directories:
+    - $HOME/.sbt/boot
+    - $HOME/.ivy2/cache
 script:
   - sbt ++$TRAVIS_SCALA_VERSION clean coverage test
 after_success:
