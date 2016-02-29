@@ -1,6 +1,6 @@
 # awsscala
 
-[![Build Status](https://travis-ci.org/99taxis/awsscala.svg?branch=master)](https://travis-ci.org/99taxis/awsscala "Travis CI") [![Coverage Status](https://coveralls.io/repos/github/99taxis/awsscala/badge.svg?branch=master)](https://coveralls.io/github/99taxis/awsscala?branch=master "Coveralls") [![License](http://img.shields.io/:license-Apache%202-red.svg)](https://github.com/99taxis/awsscala/blob/master/LICENSE "Apache 2.0 Licence")
+[![Build Status](https://travis-ci.org/99taxis/awsscala.svg?branch=master)](https://travis-ci.org/99taxis/awsscala "Travis CI") [![Coverage Status](https://coveralls.io/repos/github/99taxis/awsscala/badge.svg?branch=master)](https://coveralls.io/github/99taxis/awsscala?branch=master "Coveralls") [![Dependencies](https://app.updateimpact.com/badge/704215565069324288/awsscala.svg?config=compile)](https://app.updateimpact.com/latest/704215565069324288/awsscala) [![License](http://img.shields.io/:license-Apache%202-red.svg)](https://github.com/99taxis/awsscala/blob/master/LICENSE "Apache 2.0 Licence")
 
 AWS SDK Java to Scala translations, wrappers and reinventions
 
