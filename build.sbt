@@ -1,7 +1,7 @@
 name := """awsscala"""
 organization := "com.taxis99"
 
-val awsVersion = "1.10.50"
+val awsVersion = "1.10.56"
 
 licenses += ("Apache-2.0", url("https://www.apache.org/licenses/LICENSE-2.0.html"))
 
