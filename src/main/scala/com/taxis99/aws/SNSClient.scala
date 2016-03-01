@@ -7,7 +7,7 @@ import com.amazonaws.services.sns.model._
 /**
  * Client to handle SNS Interface
  */
-class SNSClient (accessKey: String, secretKey: String, topicName: String, endpoint: String){
+class SNSClient(accessKey: String, secretKey: String, topicName: String, endpoint: String) {
 
   def create(): AmazonSNS = new AmazonSNSAsyncClient(new BasicAWSCredentials(accessKey, secretKey))
 

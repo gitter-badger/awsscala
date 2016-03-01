@@ -15,7 +15,7 @@ import com.amazonaws.services.sqs.model.{ CreateQueueRequest, GetQueueAttributes
 /**
  * Subscribes SQS queues to SNS topics
  */
-class SNSSQSSubscriber (accessKey: String, secretKey: String, sqsEndpoint: String, snsEndpoint: String) {
+class SNSSQSSubscriber(accessKey: String, secretKey: String, sqsEndpoint: String, snsEndpoint: String) {
 
   def createSNSClient(): AmazonSNS = new AmazonSNSAsyncClient(new BasicAWSCredentials(accessKey, secretKey))
   def createSQSClient(): AmazonSQS = new AmazonSQSAsyncClient(new BasicAWSCredentials(accessKey, secretKey))
@@ -33,9 +33,11 @@ class SNSSQSSubscriber (accessKey: String, secretKey: String, sqsEndpoint: Strin
   def subscribeQueueToTopic(queueName: String, topicName: String, rawMessageDelivery: Boolean = true) {
     val queueUrl = sqsClient.createQueue(new CreateQueueRequest(queueName)).getQueueUrl
 
-    val queueArn = sqsClient.getQueueAttributes(new GetQueueAttributesRequest(queueUrl)
-      .withAttributeNames(QueueAttributeName.QueueArn.toString)
-    ).getAttributes().get(QueueAttributeName.QueueArn.toString)
+    val queueArn = {
+      val queueArnAttributeName = QueueAttributeName.QueueArn.toString
+      sqsClient.getQueueAttributes(new GetQueueAttributesRequest(queueUrl)
+        .withAttributeNames(queueArnAttributeName)).getAttributes().get(queueArnAttributeName)
+    }
 
     val topicArn = snsClient.createTopic(new CreateTopicRequest(topicName)).getTopicArn
 
@@ -50,29 +52,25 @@ class SNSSQSSubscriber (accessKey: String, secretKey: String, sqsEndpoint: Strin
     val subscribeResult = snsClient.subscribe(new SubscribeRequest()
       .withEndpoint(queueArn)
       .withProtocol("sqs")
-      .withTopicArn(topicArn)
-    )
+      .withTopicArn(topicArn))
 
     val subscriptionArn = subscribeResult.getSubscriptionArn
 
     snsClient.setSubscriptionAttributes(new SetSubscriptionAttributesRequest()
       .withSubscriptionArn(subscriptionArn)
       .withAttributeName("RawMessageDelivery")
-      .withAttributeValue(rawMessageDelivery.toString)
-    )
+      .withAttributeValue(rawMessageDelivery.toString))
 
     val policy = new Policy().withStatements(new Statement(Effect.Allow)
       .withId(s"topic-subscription-$topicArn")
       .withPrincipals(Principal.AllUsers)
       .withActions(SQSActions.SendMessage)
       .withResources(new Resource(queueArn))
-      .withConditions(ConditionFactory.newSourceArnCondition(topicArn))
-    )
+      .withConditions(ConditionFactory.newSourceArnCondition(topicArn)))
 
     sqsClient.setQueueAttributes(new SetQueueAttributesRequest()
       .withQueueUrl(queueUrl)
-      .withAttributes(Map(QueueAttributeName.Policy.toString -> policy.toJson))
-    )
+      .withAttributes(Map(QueueAttributeName.Policy.toString -> policy.toJson)))
   }
 
 }

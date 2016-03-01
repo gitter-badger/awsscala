@@ -7,9 +7,9 @@ import com.amazonaws.services.sqs.{ AmazonSQS, AmazonSQSAsyncClient }
 import com.amazonaws.services.sqs.model._
 
 /**
-  * Client to handle SQS Interface
-  */
-class SQSClient (accessKey: String, secretKey: String, queueName: String, endpoint: String) {
+ * Client to handle SQS Interface
+ */
+class SQSClient(accessKey: String, secretKey: String, queueName: String, endpoint: String) {
 
   def create(): AmazonSQS = new AmazonSQSAsyncClient(new BasicAWSCredentials(accessKey, secretKey))
 
@@ -23,8 +23,8 @@ class SQSClient (accessKey: String, secretKey: String, queueName: String, endpoi
   def fetchMessage() = fetchMessages(maxNumberOfMessages = 1).headOption
 
   /**
-    * @param maxNumberOfMessages must be between 1 and 10.
-    */
+   * @param maxNumberOfMessages must be between 1 and 10.
+   */
   def fetchMessages(maxNumberOfMessages: Int): List[Message] = {
     val request = (new ReceiveMessageRequest(queueUrl)).withMaxNumberOfMessages(maxNumberOfMessages).withAttributeNames("ApproximateReceiveCount", "SentTimestamp")
     client.receiveMessage(request).getMessages().asScala.toList
