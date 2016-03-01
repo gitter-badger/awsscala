@@ -9,17 +9,10 @@ AWS SDK Java to Scala translations, wrappers and reinventions
 
 For sbt builds, add the following to your build.sbt:
 
-    resolvers += "bintray.99taxis OS releases" at "http://dl.bintray.com/content/99taxis/maven"
-    libraryDependencies += "com.taxis99" %% "awsscala" % "X.Y.Z",
-
-For Maven builds, add the library and:
-
-    <repositories>
-      <repository>
-        <id>BinTray 99Taxis OS releases</id>
-        <url>http://dl.bintray.com/content/99taxis/maven</url>
-      </repository>
-    </repositories>
+```scala
+resolvers += "bintray.99taxis OS releases" at "http://dl.bintray.com/content/99taxis/maven"
+libraryDependencies += "com.taxis99" %% "awsscala" % "X.Y.Z",
+```
 
 The version comes from the corresponding Git tag.
 
@@ -38,20 +31,11 @@ To publish your library to BinTray follow these steps:
                 
 To enable others to use your library you can either have them add a new resolver / repository to their build or you can [add your library to Maven Central via jCenter](http://blog.bintray.com/2014/02/11/bintray-as-pain-free-gateway-to-maven-central/).
 
-For the former option do:
+For the former option do have your scala users add the following to their build.sbt:
 
-For your sbt users have them add the following to their build.sbt:
-
-    resolvers += "YOUR_BINTRAY_USERNAME" at "http://dl.bintray.com/content/YOUR_BINTRAY_USERNAME/maven"
-
-For Maven users have them add:
-
-    <repositories>
-      <repository>
-        <id>YOUR_BINTRAY_USERNAME</id>
-        <url>http://dl.bintray.com/content/YOUR_BINTRAY_USERNAME/maven</url>
-      </repository>
-    </repositories>
+```scala
+resolvers += "YOUR_BINTRAY_USERNAME" at "http://dl.bintray.com/content/YOUR_BINTRAY_USERNAME/maven"
+```
 
 ## License
 
