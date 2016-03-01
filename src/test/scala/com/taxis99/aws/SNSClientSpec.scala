@@ -6,13 +6,17 @@ import org.scalatest.{ BeforeAndAfter, MustMatchers, WordSpec }
 
 import com.amazonaws.services.sns.AmazonSNS
 import com.amazonaws.services.sns.model._
+import com.taxis99.aws.credentials.BasicAWSCredentialsProvider
 
 class SNSClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
-  class MockSNSClient(val sns: AmazonSNS = mock(classOf[AmazonSNS])) extends SNSClient(
-    accessKey = "@key", secretKey = "@secret", topicName = "@topic", endpoint = "@snsEndpoint"
-  ) {
 
-    override def create() = {
+  class MockSNSClient(val sns: AmazonSNS = mock(classOf[AmazonSNS])) extends SNSClient(
+    topicName = "@topic", snsEndpoint = "@snsEndpoint"
+  )(BasicAWSCredentialsProvider(accessKey = "@key", secretKey = "@secret")) {
+
+    import com.amazonaws.auth.AWSCredentials
+
+    override def create(awsCredentials: AWSCredentials) = {
 
       when(sns.createTopic(new CreateTopicRequest("@topic")))
         .thenReturn(new CreateTopicResult().withTopicArn("@topicArn"))
