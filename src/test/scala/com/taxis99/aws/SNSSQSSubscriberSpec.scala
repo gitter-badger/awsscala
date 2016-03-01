@@ -13,7 +13,7 @@ import com.amazonaws.services.sqs.model._
 import com.amazonaws.services.sqs.AmazonSQS
 
 class SNSSQSSubscriberSpec extends WordSpec with MustMatchers with BeforeAndAfter {
-  class MockSNSSQSSubscriber(val sns: AmazonSNS, val sqs: AmazonSQS) extends SNSSQSSubscriber(accessKey = "@key", secretKey = "@secret", sqsEndpoint = "@sqsEndpoint", snsEndpoint = "@snsEndpoint"){
+  class MockSNSSQSSubscriber(val sns: AmazonSNS, val sqs: AmazonSQS) extends SNSSQSSubscriber(accessKey = "@key", secretKey = "@secret", sqsEndpoint = "@sqsEndpoint", snsEndpoint = "@snsEndpoint") {
     override def createSNSClient() = {
       when(sns.createTopic(new CreateTopicRequest("@topic")))
         .thenReturn(new CreateTopicResult().withTopicArn("@topicArn"))

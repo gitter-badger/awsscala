@@ -64,7 +64,7 @@ class SQSClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
         verify(sqsClient.sqs, times(1)).deleteMessage(any[DeleteMessageRequest]())
       }
     }
- 
+
     "send message" should {
 
       "create queue on client usage" in {
@@ -77,7 +77,7 @@ class SQSClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
         verify(sqsClient.sqs, times(1)).sendMessage(new SendMessageRequest("@queueUrl", "@message"))
       }
     }
-    
+
     "checks approximateNumberOfMessages" should {
 
       "create queue on client usage" in {
