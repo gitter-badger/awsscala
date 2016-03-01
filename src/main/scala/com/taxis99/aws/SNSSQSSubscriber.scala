@@ -7,9 +7,9 @@ import com.amazonaws.auth.policy.{ Policy, Principal, Resource, Statement }
 import com.amazonaws.auth.policy.Statement.Effect
 import com.amazonaws.auth.policy.actions.SQSActions
 import com.amazonaws.auth.policy.conditions.ConditionFactory
-import com.amazonaws.services.sns.{ AmazonSNS, AmazonSNSAsyncClient }
+import com.amazonaws.services.sns.{ AmazonSNS, AmazonSNSClient }
 import com.amazonaws.services.sns.model.{ CreateTopicRequest, SetSubscriptionAttributesRequest, SubscribeRequest }
-import com.amazonaws.services.sqs.{ AmazonSQS, AmazonSQSAsyncClient }
+import com.amazonaws.services.sqs.{ AmazonSQS, AmazonSQSClient }
 import com.amazonaws.services.sqs.model.{ CreateQueueRequest, GetQueueAttributesRequest, QueueAttributeName, SetQueueAttributesRequest }
 
 /**
@@ -17,8 +17,8 @@ import com.amazonaws.services.sqs.model.{ CreateQueueRequest, GetQueueAttributes
  */
 class SNSSQSSubscriber(accessKey: String, secretKey: String, sqsEndpoint: String, snsEndpoint: String) {
 
-  def createSNSClient(): AmazonSNS = new AmazonSNSAsyncClient(new BasicAWSCredentials(accessKey, secretKey))
-  def createSQSClient(): AmazonSQS = new AmazonSQSAsyncClient(new BasicAWSCredentials(accessKey, secretKey))
+  def createSNSClient(): AmazonSNS = new AmazonSNSClient(new BasicAWSCredentials(accessKey, secretKey))
+  def createSQSClient(): AmazonSQS = new AmazonSQSClient(new BasicAWSCredentials(accessKey, secretKey))
 
   private lazy val (snsClient, sqsClient) = {
 

@@ -8,7 +8,10 @@ import com.amazonaws.services.sns.AmazonSNS
 import com.amazonaws.services.sns.model._
 
 class SNSClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
-  class MockSNSClient(val sns: AmazonSNS = mock(classOf[AmazonSNS])) extends SNSClient(accessKey = "@key", secretKey = "@secret", topicName = "@topic", endpoint = "@snsEndpoint") {
+  class MockSNSClient(val sns: AmazonSNS = mock(classOf[AmazonSNS])) extends SNSClient(
+    accessKey = "@key", secretKey = "@secret", topicName = "@topic", endpoint = "@snsEndpoint"
+  ) {
+
     override def create() = {
 
       when(sns.createTopic(new CreateTopicRequest("@topic")))

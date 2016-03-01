@@ -1,7 +1,7 @@
 package com.taxis99.aws
 
 import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.services.sns.{ AmazonSNS, AmazonSNSAsyncClient }
+import com.amazonaws.services.sns.{ AmazonSNS, AmazonSNSClient }
 import com.amazonaws.services.sns.model._
 
 /**
@@ -9,7 +9,7 @@ import com.amazonaws.services.sns.model._
  */
 class SNSClient(accessKey: String, secretKey: String, topicName: String, endpoint: String) {
 
-  def create(): AmazonSNS = new AmazonSNSAsyncClient(new BasicAWSCredentials(accessKey, secretKey))
+  def create(): AmazonSNS = new AmazonSNSClient(new BasicAWSCredentials(accessKey, secretKey))
 
   private lazy val (client, topicArn) = {
     val newClient = create()
