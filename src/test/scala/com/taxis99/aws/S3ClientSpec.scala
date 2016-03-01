@@ -13,8 +13,12 @@ import com.amazonaws.services.s3.model._
 
 class S3ClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
 
-  class MockS3Client(val s3: AmazonS3 = mock(classOf[AmazonS3])) extends S3Client(accessKey = "@key", secretKey = "@secret", bucketName = "@bucket") {
+  class MockS3Client(val s3: AmazonS3 = mock(classOf[AmazonS3])) extends S3Client(
+    accessKey = "@key", secretKey = "@secret", bucketName = "@bucket"
+  ) {
+
     override def create() = {
+
       val objectListing = mock(classOf[ObjectListing])
       when(objectListing.getObjectSummaries())
         .thenReturn(List[S3ObjectSummary]())

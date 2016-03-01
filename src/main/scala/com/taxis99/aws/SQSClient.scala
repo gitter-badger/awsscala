@@ -3,7 +3,7 @@ package com.taxis99.aws
 import scala.collection.JavaConverters._
 
 import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.services.sqs.{ AmazonSQS, AmazonSQSAsyncClient }
+import com.amazonaws.services.sqs.{ AmazonSQS, AmazonSQSClient }
 import com.amazonaws.services.sqs.model._
 
 /**
@@ -11,7 +11,7 @@ import com.amazonaws.services.sqs.model._
  */
 class SQSClient(accessKey: String, secretKey: String, queueName: String, endpoint: String) {
 
-  def create(): AmazonSQS = new AmazonSQSAsyncClient(new BasicAWSCredentials(accessKey, secretKey))
+  def create(): AmazonSQS = new AmazonSQSClient(new BasicAWSCredentials(accessKey, secretKey))
 
   private lazy val (client, queueUrl) = {
     val newClient = create()
@@ -51,7 +51,8 @@ class SQSClient(accessKey: String, secretKey: String, queueName: String, endpoin
   }
 
   def approximateNumberOfMessages(): Integer = {
-    client.getQueueAttributes(new GetQueueAttributesRequest(queueUrl, List("ApproximateNumberOfMessages").asJava))
-      .getAttributes.get("ApproximateNumberOfMessages").toInt
+    val approxNumOfMessagesAttributeName = QueueAttributeName.ApproximateNumberOfMessages.toString
+    client.getQueueAttributes(new GetQueueAttributesRequest(queueUrl, List(approxNumOfMessagesAttributeName).asJava))
+      .getAttributes.get(approxNumOfMessagesAttributeName).toInt
   }
 }

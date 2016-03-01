@@ -1,5 +1,7 @@
 package com.taxis99.aws
 
+import java.util.{ List => JList }
+
 import scala.collection.JavaConverters._
 
 import org.mockito.Matchers.{ any, anyString }
@@ -11,8 +13,12 @@ import com.amazonaws.services.sqs.model._
 
 class SQSClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
 
-  class MockSQSClient(val sqs: AmazonSQS = mock(classOf[AmazonSQS])) extends SQSClient(accessKey = "@key", secretKey = "@secret", queueName = "@queue", endpoint = "@sqsEndpoint") {
+  class MockSQSClient(val sqs: AmazonSQS = mock(classOf[AmazonSQS])) extends SQSClient(
+    accessKey = "@key", secretKey = "@secret", queueName = "@queue", endpoint = "@sqsEndpoint"
+  ) {
+
     override def create() = {
+
       val queueUrl = "@queueUrl"
       when(sqs.createQueue(any[CreateQueueRequest]()))
         .thenReturn(new CreateQueueResult().withQueueUrl(queueUrl))
@@ -63,6 +69,12 @@ class SQSClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
         sqsClient.deleteMessage(messageMock)
         verify(sqsClient.sqs, times(1)).deleteMessage(any[DeleteMessageRequest]())
       }
+
+      "do nothing on null message" in {
+        val nullMessage = null
+        sqsClient.deleteMessage(nullMessage)
+        verify(sqsClient.sqs, never()).deleteMessage(any[DeleteMessageRequest]())
+      }
     }
 
     "send message" should {
@@ -107,12 +119,12 @@ class SQSClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
       "use inner client deleteMessageBatch" in {
         val messageMock = mock(classOf[Message])
         sqsClient.deleteMessages(List(messageMock))
-        verify(sqsClient.sqs, times(1)).deleteMessageBatch(anyString, any[java.util.List[DeleteMessageBatchRequestEntry]]())
+        verify(sqsClient.sqs, times(1)).deleteMessageBatch(anyString, any[JList[DeleteMessageBatchRequestEntry]]())
       }
 
       "do nothing on empty list" in {
         sqsClient.deleteMessages(List())
-        verify(sqsClient.sqs, never()).deleteMessageBatch(anyString, any[java.util.List[DeleteMessageBatchRequestEntry]]())
+        verify(sqsClient.sqs, never()).deleteMessageBatch(anyString, any[JList[DeleteMessageBatchRequestEntry]]())
       }
     }
 
