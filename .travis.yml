@@ -17,5 +17,5 @@ cache:
 script:
   - sbt ++$TRAVIS_SCALA_VERSION clean coverage test
 after_success:
-  - sbt ++$TRAVIS_SCALA_VERSION coveralls
+  - sbt ++$TRAVIS_SCALA_VERSION coverageReport coveralls
   - sbt ++$TRAVIS_SCALA_VERSION updateImpactSubmit
