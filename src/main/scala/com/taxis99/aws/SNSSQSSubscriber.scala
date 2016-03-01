@@ -2,7 +2,7 @@ package com.taxis99.aws
 
 import scala.collection.JavaConversions._
 
-import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.policy.{ Policy, Principal, Resource, Statement }
 import com.amazonaws.auth.policy.Statement.Effect
 import com.amazonaws.auth.policy.actions.SQSActions
@@ -11,14 +11,15 @@ import com.amazonaws.services.sns.{ AmazonSNS, AmazonSNSClient }
 import com.amazonaws.services.sns.model.{ CreateTopicRequest, SetSubscriptionAttributesRequest, SubscribeRequest }
 import com.amazonaws.services.sqs.{ AmazonSQS, AmazonSQSClient }
 import com.amazonaws.services.sqs.model.{ CreateQueueRequest, GetQueueAttributesRequest, QueueAttributeName, SetQueueAttributesRequest }
+import com.taxis99.aws.credentials.AWSCredentialsProvider
 
 /**
  * Subscribes SQS queues to SNS topics
  */
-class SNSSQSSubscriber(accessKey: String, secretKey: String, sqsEndpoint: String, snsEndpoint: String) {
+abstract class SNSSQSSubscriber(sqsEndpoint: String, snsEndpoint: String)(implicit provider: AWSCredentialsProvider) {
 
-  def createSNSClient(): AmazonSNS = new AmazonSNSClient(new BasicAWSCredentials(accessKey, secretKey))
-  def createSQSClient(): AmazonSQS = new AmazonSQSClient(new BasicAWSCredentials(accessKey, secretKey))
+  def createSNSClient(awsCredentials: AWSCredentials = provider.credentials()): AmazonSNS = new AmazonSNSClient(awsCredentials)
+  def createSQSClient(awsCredentials: AWSCredentials = provider.credentials()): AmazonSQS = new AmazonSQSClient(awsCredentials)
 
   private lazy val (snsClient, sqsClient) = {
 

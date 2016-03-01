@@ -10,14 +10,17 @@ import org.scalatest.{ BeforeAndAfter, MustMatchers, WordSpec }
 
 import com.amazonaws.services.sqs.AmazonSQS
 import com.amazonaws.services.sqs.model._
+import com.taxis99.aws.credentials.BasicAWSCredentialsProvider
 
 class SQSClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
 
   class MockSQSClient(val sqs: AmazonSQS = mock(classOf[AmazonSQS])) extends SQSClient(
-    accessKey = "@key", secretKey = "@secret", queueName = "@queue", endpoint = "@sqsEndpoint"
-  ) {
+    queueName = "@queue", sqsEndpoint = "@sqsEndpoint"
+  )(BasicAWSCredentialsProvider(accessKey = "@key", secretKey = "@secret")) {
 
-    override def create() = {
+    import com.amazonaws.auth.AWSCredentials
+
+    override def create(awsCredentials: AWSCredentials) = {
 
       val queueUrl = "@queueUrl"
       when(sqs.createQueue(any[CreateQueueRequest]()))

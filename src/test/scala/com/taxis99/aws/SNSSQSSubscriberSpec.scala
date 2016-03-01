@@ -11,13 +11,17 @@ import com.amazonaws.services.sns.model._
 import com.amazonaws.services.sqs.AmazonSQSClient
 import com.amazonaws.services.sqs.model._
 import com.amazonaws.services.sqs.AmazonSQS
+import com.taxis99.aws.credentials.BasicAWSCredentialsProvider
 
 class SNSSQSSubscriberSpec extends WordSpec with MustMatchers with BeforeAndAfter {
-  class MockSNSSQSSubscriber(val sns: AmazonSNS, val sqs: AmazonSQS) extends SNSSQSSubscriber(
-    accessKey = "@key", secretKey = "@secret", sqsEndpoint = "@sqsEndpoint", snsEndpoint = "@snsEndpoint"
-  ) {
 
-    override def createSNSClient() = {
+  class MockSNSSQSSubscriber(val sns: AmazonSNS, val sqs: AmazonSQS) extends SNSSQSSubscriber(
+    sqsEndpoint = "@sqsEndpoint", snsEndpoint = "@snsEndpoint"
+  )(BasicAWSCredentialsProvider(accessKey = "@key", secretKey = "@secret")) {
+
+    import com.amazonaws.auth.AWSCredentials
+
+    override def createSNSClient(awsCredentials: AWSCredentials) = {
 
       when(sns.createTopic(new CreateTopicRequest("@topic")))
         .thenReturn(new CreateTopicResult().withTopicArn("@topicArn"))
@@ -26,7 +30,7 @@ class SNSSQSSubscriberSpec extends WordSpec with MustMatchers with BeforeAndAfte
       sns
     }
 
-    override def createSQSClient() = {
+    override def createSQSClient(awsCredentials: AWSCredentials) = {
 
       when(sqs.createQueue(new CreateQueueRequest("@queue")))
         .thenReturn(new CreateQueueResult().withQueueUrl("@queueUrl"))

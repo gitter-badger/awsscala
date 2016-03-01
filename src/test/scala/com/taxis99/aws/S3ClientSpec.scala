@@ -10,14 +10,17 @@ import org.scalatest.{ BeforeAndAfter, MustMatchers, WordSpec }
 
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.model._
+import com.taxis99.aws.credentials.BasicAWSCredentialsProvider
 
 class S3ClientSpec extends WordSpec with MustMatchers with BeforeAndAfter {
 
   class MockS3Client(val s3: AmazonS3 = mock(classOf[AmazonS3])) extends S3Client(
-    accessKey = "@key", secretKey = "@secret", bucketName = "@bucket"
-  ) {
+    bucketName = "@bucket"
+  )(BasicAWSCredentialsProvider(accessKey = "@key", secretKey = "@secret")) {
 
-    override def create() = {
+    import com.amazonaws.auth.AWSCredentials
+
+    override def create(awsCredentials: AWSCredentials) = {
 
       val objectListing = mock(classOf[ObjectListing])
       when(objectListing.getObjectSummaries())
