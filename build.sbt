@@ -21,4 +21,10 @@ libraryDependencies ++= Seq(
   "org.mockito" % "mockito-all" % "1.9.5" % "test"
 )
 
-bintraySettings
+site.settings
+
+site.includeScaladoc()
+
+ghpages.settings
+
+git.remoteRepo := "git@github.com:99taxis/awsscala.git"

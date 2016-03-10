@@ -8,14 +8,20 @@ jdk:
   - oraclejdk8
 sudo: false
 before_cache:
-  - find $HOME/.sbt -name "*.lock" | xargs rm
-  - find $HOME/.ivy2 -name "ivydata-*.properties" | xargs rm
+  - du -h -d 1 $HOME/.ivy2/
+  - du -h -d 2 $HOME/.sbt/
+  - find $HOME/.sbt -name "*.lock" -type f -delete
+  - find $HOME/.ivy2 -name "ivydata-*.properties" -type f -delete
 cache:
   directories:
-    - $HOME/.sbt/boot
-    - $HOME/.ivy2/cache
+    - $HOME/.sbt/0.13
+    - $HOME/.sbt/boot/scala*
+    - $HOME/.sbt/cache
+    - $HOME/.sbt/launchers
+    - $HOME/.ivy2
 script:
-  - sbt ++$TRAVIS_SCALA_VERSION clean coverage test
+  - sbt ++$TRAVIS_SCALA_VERSION clean test:compile coverage test
 after_success:
-  - sbt ++$TRAVIS_SCALA_VERSION coveralls
+  - sbt ++$TRAVIS_SCALA_VERSION coverageReport coveralls
+  - sbt ++$TRAVIS_SCALA_VERSION codacyCoverage
   - sbt ++$TRAVIS_SCALA_VERSION updateImpactSubmit
