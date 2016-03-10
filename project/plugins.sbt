@@ -16,7 +16,7 @@ resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/release
 addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "4.0.0")
 
 
-resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+// resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2"
 
 // for code formatting
 addSbtPlugin("org.scalariform" % "sbt-scalariform" % "1.6.0")
@@ -35,7 +35,7 @@ addSbtPlugin("com.codacy" % "sbt-codacy-coverage" % "1.2.1")
 
 
 // Provides site generation functionality
-addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "0.8.2")
+addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "0.8.1")
 
 // Provides auto-generating and publishing a gh-pages site
 addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.5.4")
