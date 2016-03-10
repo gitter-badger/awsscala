@@ -27,6 +27,7 @@ project/plugins/project/
 # Eclipse specific
 /.classpath
 /.project
+/.settings/
 /.cache-main
 /.cache-tests
 
