@@ -1,5 +1,7 @@
 # awsscala
 
+[![Join the chat at https://gitter.im/99taxis/awsscala](https://badges.gitter.im/99taxis/awsscala.svg)](https://gitter.im/99taxis/awsscala?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/99taxis/awsscala.svg?branch=master)](https://travis-ci.org/99taxis/awsscala "Travis CI") [![Coverage Status](https://coveralls.io/repos/github/99taxis/awsscala/badge.svg?branch=master)](https://coveralls.io/github/99taxis/awsscala?branch=master "Coveralls") [![Dependencies](https://app.updateimpact.com/badge/704215565069324288/awsscala.svg?config=compile)](https://app.updateimpact.com/latest/704215565069324288/awsscala) [![Codacy Badge](https://api.codacy.com/project/badge/grade/106d6d09bfe746aa85a1d6c51803e01b)](https://www.codacy.com/app/migmruiz/awsscala)
 
 AWS SDK Java to Scala translations, wrappers and reinventions
